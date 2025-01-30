@@ -12,10 +12,10 @@ and the Flutter guide for
 -->
 
 A Flutter package that enables seamless integration of Google reCAPTCHA v2 into your app.
-
+Version (0.1.0)
 ## Demo
 
-![hippo](https://i.postimg.cc/1zp02MDV/flutter-easy-recaptcha-v2.gif)
+![DemoGIF](https://i.postimg.cc/1zp02MDV/flutter-easy-recaptcha-v2.gif)
 
 ## Getting started
 
