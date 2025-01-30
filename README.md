@@ -15,7 +15,7 @@ A Flutter package that enables seamless integration of Google reCAPTCHA v2 into 
 
 ## Demo
 
-![Demo GIF](https://i.postimg.cc/1zp02MDV/flutter-easy-recaptcha-v2.gif)
+![hippo](https://i.postimg.cc/1zp02MDV/flutter-easy-recaptcha-v2.gif)
 
 ## Getting started
 
