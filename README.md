@@ -13,9 +13,9 @@ and the Flutter guide for
 
 A Flutter package that enables seamless integration of Google reCAPTCHA v2 into your app.
 
-## Features
+## Demo
 
-![Alt Text](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHU5Y3kybnh6cGpmNHljenJveml5Y2xwbTNqaXV5cjJ0MzhvMWwyZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sKFYnUwsjL74pDX5IF/giphy.gif)
+![Demo GIF](https://media0.giphy.com/media/sKFYnUwsjL74pDX5IF/giphy.gif)
 
 ## Getting started
 
@@ -101,6 +101,6 @@ And enjoy adding reCAPTCHA v2 to your without the need for any external web page
 
 ## Author
 
-- [@octokatherine](https://github.com/mohamedbenalima)
+- [@MohamedBenHalima](https://github.com/mohamedbenalima)
 
 Contact the developer : [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohamed-ben-halima-0967b217a/)
