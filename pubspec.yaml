@@ -1,7 +1,7 @@
 name: flutter_easy_recaptcha_v2
 description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+version: 0.1.0
+homepage: https://github.com/mohamedbenalima/flutter_easy_recaptcha_v2.git
 
 environment:
   sdk: ^3.6.1

@@ -57,13 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 600,
                 child: RecaptchaV2(
                   // Your API Key
-                  apiKey: "your-apiKey",
+                  apiKey: "Your api key",
                   onVerifiedSuccessfully: (token) async {
                     log("Recaptcha token $token");
                     // It is recommended to verify the token on your server but you can also verify it here.
                     final bool isTokenVerified = await verifyRecaptchaV2Token(
                       token: token,
-                      apiSecret: "your-apiSecret",
+                      apiSecret: "Your api secret",
                     );
                     if (isTokenVerified) {
                       log("Token verified successfully");

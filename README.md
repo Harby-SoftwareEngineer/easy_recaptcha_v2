@@ -11,29 +11,96 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package that enables seamless integration of Google reCAPTCHA v2 into your app.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+![Alt Text](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHU5Y3kybnh6cGpmNHljenJveml5Y2xwbTNqaXV5cjJ0MzhvMWwyZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/sKFYnUwsjL74pDX5IF/giphy.gif)
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Add flutter_easy_recaptcha_v2 under your dependencies in the pubspec.yaml file.
+
+```yml
+ dependencies:
+  flutter:
+    sdk: flutter
+  flutter_easy_recaptcha_v2: any
+```
+Import it to your Widget 
+
+```dart
+import 'package:flutter_easy_recaptcha_v2/flutter_easy_recaptcha_v2.dart';
+```
+And enjoy adding reCAPTCHA v2 to your without the need for any external web page.
+
+## Configuration
+
+🤖 Android: Make sure to add ```android:usesCleartextTraffic="true"``` under android/app/src/main/AndroidManifest.xml
+
+```xml
+ <application
+    android:usesCleartextTraffic="true"
+    ... >
+```
+🍏 IOS: No configuration required
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+ void _showRecaptchaBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      isDismissible: false,
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 700,
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.close,
+                    weight: 20,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              SizedBox(
+                height: 600,
+                child: RecaptchaV2(
+                  // Your API Key
+                  apiKey: "Your api key",
+                  onVerifiedSuccessfully: (token) async {
+                    log("Recaptcha token $token");
+                    // It is recommended to verify the token on your server but you can also verify it here.
+                    final bool isTokenVerified = await verifyRecaptchaV2Token(
+                      token: token,
+                      apiSecret: "Your api secret",
+                    );
+                    if (isTokenVerified) {
+                      log("Token verified successfully");
+                      // Implement your logic here
+                    } else {
+                      log("Token verification failed");
+                      // Implement your logic here
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 ```
 
-## Additional information
+## Author
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+- [@octokatherine](https://github.com/mohamedbenalima)
+
+Contact the developer : [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mohamed-ben-halima-0967b217a/)
