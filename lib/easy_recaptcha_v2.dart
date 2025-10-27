@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:http/http.dart' as http;
 
-InAppLocalhostServer localhostServer = InAppLocalhostServer();
+const int _port = 8081;
+final InAppLocalhostServer localhostServer = InAppLocalhostServer(port: _port);
 
 class RecaptchaV2 extends StatefulWidget {
   final String apiKey;
@@ -29,24 +30,27 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
   bool _isLoading = true;
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await localhostServer.start();
-      setState(() {
-        _isLoading = false;
-      });
-    });
     super.initState();
+    // The localhost server is now expected to be started by the app developer
+    // before this widget is used.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? Center(child: CircularProgressIndicator())
+        ? const Center(child: CircularProgressIndicator())
         : InAppWebView(
             initialUrlRequest: URLRequest(
               url: WebUri.uri(
                 Uri.parse(
-                  "http://localhost:8080/packages/easy_recaptcha_v2/assets/index.html?api_key=${widget.apiKey}&hl=${widget.lang}",
+                  "http://localhost:$_port/packages/easy_recaptcha_v2/assets/index.html?api_key=${widget.apiKey}&hl=${widget.lang}",
                 ),
               ),
             ),
@@ -56,9 +60,11 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
             ),
             onWebViewCreated: (controller) {},
             onLoadStop: (controller, url) {
-              setState(() {
-                _isLoading = false;
-              });
+              if (mounted) {
+                setState(() {
+                  _isLoading = false;
+                });
+              }
             },
             onConsoleMessage: (controller, consoleMessage) {
               log("[easy_recaptcha_v2] consoleMessage ${consoleMessage.message}");
@@ -73,12 +79,6 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
               }
             },
           );
-  }
-
-  @override
-  void dispose() {
-    localhostServer.close();
-    super.dispose();
   }
 }
 

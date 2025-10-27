@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:easy_recaptcha_v2/easy_recaptcha_v2.dart';
 
 void main() async {
+  // Ensure that the Flutter bindings are initialized.
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Start the localhost server if it's not already running.
+  if (!localhostServer.isRunning()) {
+    await localhostServer.start();
+  }
+
   runApp(const MyApp());
 }
 
@@ -57,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 600,
                 child: RecaptchaV2(
                   // Your API Key
-                  apiKey: "Your api key",
+                  apiKey: '6LfYCv4pAAAAACaob_reftajF3FUMyQjTsrwWpSz',
                   onVerifiedSuccessfully: (token) async {
                     log("Recaptcha token $token");
                     // It is recommended to verify the token on your server but you can also verify it here.
