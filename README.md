@@ -19,18 +19,18 @@ Version (0.1.0)
 
 ## Getting started
 
-Add flutter_easy_recaptcha_v2 under your dependencies in the pubspec.yaml file.
+Add easy_recaptcha_v2 under your dependencies in the pubspec.yaml file.
 
 ```yml
  dependencies:
   flutter:
     sdk: flutter
-  flutter_easy_recaptcha_v2: any
+  easy_recaptcha_v2: any
 ```
 Import it to your Widget 
 
 ```dart
-import 'package:flutter_easy_recaptcha_v2/flutter_easy_recaptcha_v2.dart';
+import 'package:easy_recaptcha_v2/easy_recaptcha_v2.dart';
 ```
 And enjoy adding reCAPTCHA v2 to your without the need for any external web page.
 

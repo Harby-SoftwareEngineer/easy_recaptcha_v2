@@ -1,4 +1,4 @@
-library flutter_easy_recaptcha_v2;
+library easy_recaptcha_v2;
 
 import 'dart:convert';
 import 'dart:developer';
@@ -10,12 +10,14 @@ InAppLocalhostServer localhostServer = InAppLocalhostServer();
 
 class RecaptchaV2 extends StatefulWidget {
   final String apiKey;
+  final String? lang;
 
   final ValueChanged<String>? onVerifiedSuccessfully;
 
   const RecaptchaV2({
     super.key,
     required this.apiKey,
+    this.lang = "en",
     this.onVerifiedSuccessfully,
   });
 
@@ -44,7 +46,7 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
             initialUrlRequest: URLRequest(
               url: WebUri.uri(
                 Uri.parse(
-                  "http://localhost:8080/packages/flutter_easy_recaptcha_v2/assets/index.html?api_key=${widget.apiKey}",
+                  "http://localhost:8080/packages/easy_recaptcha_v2/assets/index.html?api_key=${widget.apiKey}&hl=${widget.lang}",
                 ),
               ),
             ),
@@ -59,7 +61,7 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
               });
             },
             onConsoleMessage: (controller, consoleMessage) {
-              log("[flutter_easy_recaptcha_v2] consoleMessage ${consoleMessage.message}");
+              log("[easy_recaptcha_v2] consoleMessage ${consoleMessage.message}");
               if (consoleMessage.messageLevel == ConsoleMessageLevel.LOG &&
                   // Verifying if the string is a token or not.
                   consoleMessage.message.length > 70) {
@@ -95,10 +97,10 @@ Future<bool> verifyRecaptchaV2Token({
     if (json['success']) {
       return true;
     } else {
-      log("[flutter_easy_recaptcha_v2] Error while verifying recaptcha token: ${json['error-codes'].toString()}");
+      log("[easy_recaptcha_v2] Error while verifying recaptcha token: ${json['error-codes'].toString()}");
       return false;
     }
   }
-  log("[flutter_easy_recaptcha_v2] Error while verifying recaptcha token");
+  log("[easy_recaptcha_v2] Error while verifying recaptcha token");
   return false;
 }

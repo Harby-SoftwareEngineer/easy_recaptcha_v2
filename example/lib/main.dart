@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_easy_recaptcha_v2/flutter_easy_recaptcha_v2.dart';
+import 'package:easy_recaptcha_v2/easy_recaptcha_v2.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Demo flutter_easy_recaptcha_v2 ',
+      title: 'Demo easy_recaptcha_v2',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Demo flutter_easy_recaptcha_v2 '),
+      home: const MyHomePage(title: 'Demo easy_recaptcha_v2'),
     );
   }
 }
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           _showRecaptchaBottomSheet(context);
         },
-        child: Text(
+        child: const Text(
           "Show RecaptchaV2",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
