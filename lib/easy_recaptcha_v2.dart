@@ -33,52 +33,56 @@ class _RecaptchaV2State extends State<RecaptchaV2> {
     super.initState();
     // The localhost server is now expected to be started by the app developer
     // before this widget is used.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (mounted) {
+    //     setState(() {
+    //       _isLoading = false;
+    //     });
+    //   }
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : InAppWebView(
-            initialUrlRequest: URLRequest(
-              url: WebUri.uri(
-                Uri.parse(
-                  "http://localhost:$_port/packages/easy_recaptcha_v2/assets/index.html?api_key=${widget.apiKey}&hl=${widget.lang}",
+    return Stack(
+      children: [
+        InAppWebView(
+                initialUrlRequest: URLRequest(
+                  url: WebUri.uri(
+                    Uri.parse(
+                      "http://localhost:$_port/packages/easy_recaptcha_v2/assets/index.html?api_key=${widget.apiKey}&hl=${widget.lang}",
+                    ),
+                  ),
                 ),
+                initialSettings: InAppWebViewSettings(
+                  javaScriptEnabled: true,
+                  transparentBackground: true,
+                ),
+                onWebViewCreated: (controller) {},
+                onLoadStop: (controller, url) {
+                  if (mounted) {
+                    setState(() {
+                      _isLoading = false;
+                    });
+                  }
+                },
+                onConsoleMessage: (controller, consoleMessage) {
+                  log("[easy_recaptcha_v2] consoleMessage ${consoleMessage.message}");
+                  if (consoleMessage.messageLevel == ConsoleMessageLevel.LOG &&
+                      // Verifying if the string is a token or not.
+                      consoleMessage.message.length > 70) {
+                    String token = consoleMessage.message;
+                    if (token.contains("verify")) {
+                      token = token.substring(7);
+                    }
+                    widget.onVerifiedSuccessfully?.call(token);
+                  }
+                },
               ),
-            ),
-            initialSettings: InAppWebViewSettings(
-              javaScriptEnabled: true,
-              transparentBackground: true,
-            ),
-            onWebViewCreated: (controller) {},
-            onLoadStop: (controller, url) {
-              if (mounted) {
-                setState(() {
-                  _isLoading = false;
-                });
-              }
-            },
-            onConsoleMessage: (controller, consoleMessage) {
-              log("[easy_recaptcha_v2] consoleMessage ${consoleMessage.message}");
-              if (consoleMessage.messageLevel == ConsoleMessageLevel.LOG &&
-                  // Verifying if the string is a token or not.
-                  consoleMessage.message.length > 70) {
-                String token = consoleMessage.message;
-                if (token.contains("verify")) {
-                  token = token.substring(7);
-                }
-                widget.onVerifiedSuccessfully?.call(token);
-              }
-            },
-          );
+        if(_isLoading)
+          const Center(child: CircularProgressIndicator())
+      ],
+    );
   }
 }
 
